@@ -132,7 +132,7 @@ remote_public_key = "key_encoded_in_base64" # Optional
 tls = true # If `true` then it will use settings in `client.transport.tls`
 
 [client.services.service1] # A service that needs forwarding. The name `service1` can change arbitrarily, as long as identical to the name in the server's configuration
-type = "tcp" # Optional. The protocol that needs forwarding. Possible values: ["tcp", "udp"]. Default: "tcp"
+type = "tcp" # Optional. The protocol that needs forwarding. Possible values: ["tcp", "udp", "socket_stream"]. Default: "tcp"
 token = "whatever" # Necessary if `client.default_token` not set
 local_addr = "127.0.0.1:1081" # Necessary. The address of the service that needs to be forwarded
 nodelay = true # Optional. Override the `client.transport.nodelay` per service
@@ -176,6 +176,9 @@ proxy_protocol = "v2" # Optional. Prepend HAProxy PROXY protocol header to each 
 [server.services.service2]
 bind_addr = "0.0.0.1:8082"
 ```
+
+### `socket_stream` service type
+`socket_stream` is a service type that is designed for forwarding unix domain sockets. It is only supported on Unix-like systems (Linux, macOS, etc.). The `local_addr` and `bind_addr` of a `socket_stream` service must be a valid path of a unix domain socket, like `/var/run/socket.sock`.
 
 ### Logging
 
